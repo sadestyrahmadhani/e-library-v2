@@ -72,6 +72,6 @@
 
 @section('js')
 <script>
-    $('#dataTable').DataTable()
+    $('#dataTable').DataTable() 
 </script>
 @endsection

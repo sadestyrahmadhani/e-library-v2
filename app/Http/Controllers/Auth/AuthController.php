@@ -8,6 +8,7 @@ use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
@@ -70,17 +71,21 @@ class AuthController extends Controller
             'email' => 'required|email',
             'phone' => 'required',
             'username' => 'required|unique:users',
-            'password' => 'required'
+            'password' => 'required',
+            'confirm_password' => 'required|same:password'
         ]);
 
         try {
+            DB::beginTransaction();
             $member = Member::create($request->only(['name','phone','email','address']));
-            $request->merge(['password' => Hash::make($request->password), 'member_id' => $member->id]);
-            User::create($request->only(['member_id', 'name', 'phone', 'email', 'username', 'password']))->assignRole('Member');
+            $request->merge(['password' => Hash::make($request->password), 'member_id' => $member->id, 'role' => 'Member']);
+            User::create($request->only(['member_id', 'name', 'phone', 'email', 'username', 'password', 'role']));
+            DB::commit();
 
-            return redirect()->route('auth')->withSuccess('Pendaftaran berhasil.');
+            return redirect()->route('login')->withSuccess('Pendaftaran berhasil.');
         } catch(Exception $e) {
-            return redirect()->back()->withErrors(['errors' => 'Opps! terjadi kesalahan saat menyimpan data']);
+            // return redirect()->back()->withErrors(['errors' => 'Opps! terjadi kesalahan saat menyimpan data']);
+            dd($e);
         }
     }
 

@@ -31,7 +31,7 @@
         <div class="row my-5">
             @foreach($popularBooks as $item)
             <div class="col-md-3 col-sm-6 col-12">
-                <a href="{{ route('home', $item->hashid) }}" class="nav-link">
+                <a href="{{ route('detail', $item->id) }}" class="nav-link">
                     <div class="card books shadow-sm">
                         <div class="card-body text-dark" style="text-align: justify">
                             <div class="card-image">
@@ -57,7 +57,7 @@
         <div class="row my-5">
             @foreach($latestBooks as $item)
             <div class="col-md-3 col-sm-6 col-12">
-                <a href="{{ route('home', $item->hashid) }}" class="nav-link">
+                <a href="{{ route('detail', $item->id) }}" class="nav-link">
                     <div class="card books shadow-sm">
                         <span class="latest-books">NEW</span>
                         <div class="card-body text-dark" style="text-align: justify">

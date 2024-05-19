@@ -45,6 +45,7 @@ class BookController extends Controller
             }
             $request->merge(['picture' => $filename]);
 
+            // DB::query("INSERT INTO books('genre_id', 'name') VALUES('$request->genre_id', '$request->name'))");
             Book::create($request->only(['genre_id', 'name', 'description', 'publication_year', 'author', 'picture']));
 
             return redirect()->route('admin.books')->with('success', 'Data berhasil ditambahkan');
@@ -87,6 +88,17 @@ class BookController extends Controller
             return redirect()->route('admin.books')->with('success', 'Data berhasil diubah');
         } catch(Exception $e) {
             return redirect()->back()->withErrors(['errors' => 'Oops! Terjadi kesalahan']);
+        }
+    }
+
+    public function destroy(Book $book)
+    {
+        try {
+            $book->delete();
+
+            return redirect()->route('admin.books')->with('success','Berhasil menghapus data genre');
+        } catch (Exception $e) {
+            return redirect()->back()->withErrors(['errors'=>'Opps! terjadi kesalahan']);
         }
     }
 

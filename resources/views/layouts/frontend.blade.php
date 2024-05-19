@@ -64,19 +64,19 @@
                         <a href="{{ route('home') }}" class="nav-link">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('home') }}" class="nav-link">Katalog</a>
+                        <a href="{{ route('katalog') }}" class="nav-link">Katalog</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('home') }}" class="nav-link">Booking</a>
+                        <a href="{{ route('booking') }}" class="nav-link">Booking</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('home') }}" class="nav-link">Contact Us</a>
+                        <a href="{{ route('contact') }}" class="nav-link">Contact Us</a>
                     </li>
                 </ul>
             </div>
             @if(is_null(getInfoLogin()))
                 <div class="ms-auto">
-                    <a href="{{ route('auth') }}" class="btn btn-primary btn-custom-left">Login</a>
+                    <a href="{{ route('login') }}" class="btn btn-primary btn-custom-left">Login</a>
                     <a href="{{ route('auth.register') }}" class="btn btn-primary btn-custom-right">Register</a>
                 </div>
             @endif

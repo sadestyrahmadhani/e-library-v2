@@ -49,7 +49,7 @@
                 </div>
                 <hr>
                 <div class="col-12 text-end">
-                    <a href="" class="btn btn-danger">Kembali</a>
+                    <a href="{{  route('admin.books') }}" class="btn btn-danger">Kembali</a>
                     <button class="btn btn-primary" type="submit"><i class="fa fa-paper-plane"></i>  submit</button>
                 </div>
             </form>

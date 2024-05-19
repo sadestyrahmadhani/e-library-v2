@@ -8,13 +8,25 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
     
-    public function index() {
+    public function index() 
+    {
         $data = [
             'title' => "Home",
             'popularBooks' => Book::withCount(['transactionDetail'])->orderBy('transaction_detail_count', 'desc')->limit(4)->get(),
             'latestBooks' => Book::orderBy('created_at', 'desc')->limit(4)->get(),
         ];
         return view('home', $data);
+    }
+
+    public function detail(Book $book)
+    {
+        $data = [
+            'title' => 'Detail',
+            'book' => $book,
+            'latestBooks' => Book::orderBy('created_at', 'desc')->limit(4)->get(),
+        ];
+
+        return view('detail', $data);
     }
 
 }

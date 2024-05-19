@@ -2,20 +2,26 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Book\BookController;
-use App\Http\Controllers\Booking\BookingController;
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\BookReturn\BookReturnController;
 use App\Http\Controllers\Borrow\BorrowController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Genre\GenreController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\KatalogController;
 use App\Http\Controllers\Member\MemberController;
 use App\Http\Controllers\Report\ReportController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/{book}/detail', [HomeController::class, 'detail'])->name('detail');
+Route::get('/katalog', [KatalogController::class, 'index'])->name('katalog');
+Route::get('/booking', [BookingController::class, 'index'])->name('booking')->middleware('auth');
+Route::get('/contact-us', [ContactController::class, 'index'])->name('contact');
 Route::prefix('auth')->middleware('guest')->group(function(){
-    Route::get('/', [AuthController::class, 'index'])->name('auth');
+    Route::get('/', [AuthController::class, 'index'])->name('login');
     Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
     Route::get('/register', [AuthController::class, 'register'])->name('auth.register');
     Route::post('/register/store', [AuthController::class, 'store'])->name('auth.register.store');
