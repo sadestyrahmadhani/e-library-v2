@@ -39,7 +39,11 @@ class BorrowController extends Controller
     public function store($book_id) 
     {
         try {
-            TransactionDetail::create(['book_id' => $book_id]);
+            $check = TransactionDetail::whereBookId($book_id)->whereNull('transaction_id')->count();
+
+            if($check == 0) {
+                TransactionDetail::create(['book_id' => $book_id]);
+            }
 
             return redirect()->back();
         } catch(Exception $e) {
