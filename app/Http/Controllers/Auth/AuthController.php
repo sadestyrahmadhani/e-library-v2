@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Log;
 use App\Models\Member;
 use App\Models\User;
 use Exception;
@@ -36,6 +37,7 @@ class AuthController extends Controller
             if($user->count() > 0){
                 if(Auth::attempt(['username' => $request->username, 'password' => $request->password])){
                     $user = $user->first();
+                    Log::create(['message' => 'User '.$user->name.' telah login sebagai '.$user->role]);
                     if($user->role == "Member"){
                         return redirect()->route('home');
                     } else {
@@ -51,6 +53,7 @@ class AuthController extends Controller
                 ]);
             }
         } catch(Exception $e){
+            Log::create(['message' => 'Error login : '.$e->getMessage()]);
             return redirect()->back()->withErrors(['errors' => 'Opps! terjadi kesalahan']);
         }
     }
@@ -91,6 +94,8 @@ class AuthController extends Controller
 
     public function logout()
     {
+        $user = Auth::user();
+        Log::create(['message' => 'User '.$user->name.' telah keluar']);
         Auth::logout();
 
         return redirect()->route('home');

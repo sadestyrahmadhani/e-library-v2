@@ -9,12 +9,18 @@ use Illuminate\Http\Request;
 class KatalogController extends Controller
 {
     
-    public function index()
+    public function index($id = null)
     {
+        $book = Book::query();
+
+        if(!is_null($id)) {
+            $book->whereGenreId($id);
+        }
+
         $data = [
             'title' => 'Katalog',
             'genres' => Genre::all(),
-            'books' => Book::all()
+            'books' => $book->get()
         ];
 
         return view('katalog', $data);
