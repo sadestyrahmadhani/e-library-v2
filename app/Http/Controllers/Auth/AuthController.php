@@ -37,7 +37,7 @@ class AuthController extends Controller
             if($user->count() > 0){
                 if(Auth::attempt(['username' => $request->username, 'password' => $request->password])){
                     $user = $user->first();
-                    Log::create(['message' => 'User '.$user->name.' telah login sebagai '.$user->role]);
+                    // Log::create(['message' => 'User '.$user->name.' telah login sebagai '.$user->role]);
                     if($user->role == "Member"){
                         return redirect()->route('home');
                     } else {
